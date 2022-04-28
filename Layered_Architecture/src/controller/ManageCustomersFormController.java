@@ -69,6 +69,7 @@ public class ManageCustomersFormController {
     }
 
     //loadAllCustomer
+    
     private void loadAllCustomers() {
         tblCustomers.getItems().clear();
         /*Get all customers*/
