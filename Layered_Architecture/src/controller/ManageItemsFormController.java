@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.ItemDAO;
 import dao.ItemDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
@@ -79,7 +80,7 @@ public class ManageItemsFormController {
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Item");*/
 
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
+            ItemDAO itemDAO = new ItemDAOImpl();
             ArrayList<ItemDTO> itemList =itemDAO.getAllItems();
 
             for (ItemDTO item:itemList) {
@@ -146,7 +147,7 @@ public class ManageItemsFormController {
             pstm.setString(1, code);
             pstm.executeUpdate();*/
 
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
+            ItemDAO itemDAO = new ItemDAOImpl();
             itemDAO.btnDeleteItem(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
@@ -196,7 +197,7 @@ public class ManageItemsFormController {
                 pstm.executeUpdate();*/
 
                 ItemDTO itemDTO = new ItemDTO(code,description,unitPrice,qtyOnHand);
-                ItemDAOImpl itemDAO = new ItemDAOImpl();
+                ItemDAO itemDAO = new ItemDAOImpl();
                 itemDAO.btnSaveItem(itemDTO);
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -222,7 +223,7 @@ public class ManageItemsFormController {
                 pstm.executeUpdate();*/
 
                 ItemDTO itemDTO = new ItemDTO(code,description,unitPrice,qtyOnHand);
-                ItemDAOImpl itemDAO = new ItemDAOImpl();
+                ItemDAO itemDAO = new ItemDAOImpl();
                 itemDAO.updateItem(itemDTO);
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
@@ -247,7 +248,7 @@ public class ManageItemsFormController {
         pstm.setString(1, code);
         return pstm.executeQuery().next();*/
 
-        ItemDAOImpl itemDAO = new ItemDAOImpl();
+        ItemDAO itemDAO = new ItemDAOImpl();
         return itemDAO.existItem(code);
     }
 
@@ -264,7 +265,7 @@ public class ManageItemsFormController {
                 return "I00-001";
             }*/
 
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
+            ItemDAO itemDAO = new ItemDAOImpl();
             return itemDAO.generateNewID();
 
         } catch (SQLException e) {
