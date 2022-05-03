@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.CustomerDAO;
 import dao.CustomerDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
@@ -78,7 +79,10 @@ public class ManageCustomersFormController {
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
 
-            CustomerDAOImpl customerDAO=new CustomerDAOImpl();
+            //Tight Coupling
+            //No DI
+
+            CustomerDAO customerDAO=new CustomerDAOImpl();
             ArrayList<CustomerDTO> allCustomers=customerDAO.getAllCustomers();
 
             for (CustomerDTO customer:allCustomers
@@ -165,7 +169,7 @@ public class ManageCustomersFormController {
                 pstm.executeUpdate();*/
 
                 CustomerDTO customerDTO=new CustomerDTO(id,name,address);
-                CustomerDAOImpl customerDAOImple=new CustomerDAOImpl();
+                CustomerDAO customerDAOImple=new CustomerDAOImpl();
                 customerDAOImple.saveCustomer(customerDTO);
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -190,7 +194,7 @@ public class ManageCustomersFormController {
                 pstm.executeUpdate();*/
 
                 CustomerDTO customerDTO = new CustomerDTO(id, name , address);
-                CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+                CustomerDAO customerDAO = new CustomerDAOImpl();
                 customerDAO.upadteCustomer(customerDTO);
 
             } catch (SQLException e) {
@@ -215,7 +219,7 @@ public class ManageCustomersFormController {
         pstm.setString(1, id);
         return pstm.executeQuery().next();*/
 
-        CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        CustomerDAO customerDAO = new CustomerDAOImpl();
         return customerDAO.existsCustomer(id);
     }
 
@@ -232,7 +236,7 @@ public class ManageCustomersFormController {
             pstm.setString(1, id);
             pstm.executeUpdate();*/
 
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustomerDAO customerDAO = new CustomerDAOImpl();
             customerDAO.btnDeleteCustomerOnAction(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
@@ -259,7 +263,7 @@ public class ManageCustomersFormController {
                 return "C00-001";
             }*/
 
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustomerDAO customerDAO = new CustomerDAOImpl();
             return customerDAO.generateNewID();
 
         } catch (SQLException e) {
