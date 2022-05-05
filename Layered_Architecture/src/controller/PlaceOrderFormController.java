@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.CustomerDTO;
 import model.ItemDTO;
+import model.OrderDTO;
 import model.OrderDetailDTO;
 import view.tdm.CustomerTM;
 import view.tdm.OrderDetailTM;
@@ -379,27 +380,34 @@ public class PlaceOrderFormController {
         /*Transaction*/
         Connection connection = null;
         try {
-            connection = DBConnection.getDbConnection().getConnection();
+            /*connection = DBConnection.getDbConnection().getConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
-            stm.setString(1, orderId);
+            stm.setString(1, orderId);*/
+            CrudDAO<OrderDTO,String> orderDAO = new OrderDAOImpl();
             /*if order id already exist*/
-            if (stm.executeQuery().next()) {
+            if (orderDAO.exist(orderId)) {
 
             }
 
-            connection.setAutoCommit(false);
+            /*connection.setAutoCommit(false);
             stm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");
             stm.setString(1, orderId);
             stm.setDate(2, Date.valueOf(orderDate));
-            stm.setString(3, customerId);
+            stm.setString(3, customerId);*/
 
-            if (stm.executeUpdate() != 1) {
+            connection.setAutoCommit(false);
+
+            //DI
+            CrudDAO<OrderDTO,String> orderDAO1 = new OrderDAOImpl();
+            boolean save = orderDAO1.save(new OrderDTO(orderId, orderDate, customerId));
+
+            if (!save) {
                 connection.rollback();
                 connection.setAutoCommit(true);
                 return false;
             }
 
-            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
+            /*stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
 
             for (OrderDetailDTO detail : orderDetails) {
                 stm.setString(1, orderId);
@@ -408,6 +416,16 @@ public class PlaceOrderFormController {
                 stm.setInt(4, detail.getQty());
 
                 if (stm.executeUpdate() != 1) {
+                    connection.rollback();
+                    connection.setAutoCommit(true);
+                    return false;
+                }*/
+
+            CrudDAO<OrderDetailDTO,String> orderDetailsDAO = new OrderDetailDAOImpl();
+
+            for (OrderDetailDTO detail : orderDetails) {
+                boolean save1 = orderDetailsDAO.save(detail);
+                if (!save1) {
                     connection.rollback();
                     connection.setAutoCommit(true);
                     return false;
