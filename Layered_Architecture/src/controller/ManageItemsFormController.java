@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.CrudDAO;
 import dao.ItemDAO;
 import dao.ItemDAOImpl;
 import db.DBConnection;
@@ -42,7 +43,7 @@ public class ManageItemsFormController {
     public JFXTextField txtUnitPrice;
     public JFXButton btnAddNewItem;
 
-    private ItemDAO itemDAO = new ItemDAOImpl();
+    private CrudDAO itemDAO = new ItemDAOImpl();
 
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -83,7 +84,7 @@ public class ManageItemsFormController {
             ResultSet rst = stm.executeQuery("SELECT * FROM Item");*/
 
             //ItemDAO itemDAO = new ItemDAOImpl();
-            ArrayList<ItemDTO> itemList =itemDAO.getAllItems();
+            ArrayList<ItemDTO> itemList =itemDAO.getAll();
 
             for (ItemDTO item:itemList) {
                 tblItems.getItems().add(new ItemTM(item.getCode(), item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()));
@@ -150,7 +151,7 @@ public class ManageItemsFormController {
             pstm.executeUpdate();*/
 
             //ItemDAO itemDAO = new ItemDAOImpl();
-            itemDAO.btnDeleteItem(code);
+            itemDAO.delete(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -200,7 +201,7 @@ public class ManageItemsFormController {
 
                 ItemDTO itemDTO = new ItemDTO(code,description,unitPrice,qtyOnHand);
                 //ItemDAO itemDAO = new ItemDAOImpl();
-                itemDAO.btnSaveItem(itemDTO);
+                itemDAO.save(itemDTO);
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
@@ -226,7 +227,7 @@ public class ManageItemsFormController {
 
                 ItemDTO itemDTO = new ItemDTO(code,description,unitPrice,qtyOnHand);
                 //ItemDAO itemDAO = new ItemDAOImpl();
-                itemDAO.updateItem(itemDTO);
+                itemDAO.delete(itemDTO);
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
@@ -251,7 +252,7 @@ public class ManageItemsFormController {
         return pstm.executeQuery().next();*/
 
         //ItemDAO itemDAO = new ItemDAOImpl();
-        return itemDAO.existItem(code);
+        return itemDAO.exist(code);
     }
 
 
