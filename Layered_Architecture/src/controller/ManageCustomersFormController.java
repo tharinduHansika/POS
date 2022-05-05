@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.CrudDAO;
 import dao.CustomerDAO;
 import dao.CustomerDAOImpl;
 import db.DBConnection;
@@ -42,7 +43,7 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
-    private CustomerDAO customerDAO=new CustomerDAOImpl();
+    private CrudDAO customerDAO=new CustomerDAOImpl();
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -85,7 +86,7 @@ public class ManageCustomersFormController {
             //No DI
 
             //CustomerDAO customerDAO=new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allCustomers=customerDAO.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers=customerDAO.getAll();
 
             for (CustomerDTO customer:allCustomers
                  ) {
@@ -172,7 +173,7 @@ public class ManageCustomersFormController {
 
                 CustomerDTO customerDTO=new CustomerDTO(id,name,address);
                 //CustomerDAO customerDAOImple=new CustomerDAOImpl();
-                customerDAO.saveCustomer(customerDTO);
+                customerDAO.save(customerDTO);
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -197,7 +198,7 @@ public class ManageCustomersFormController {
 
                 CustomerDTO customerDTO = new CustomerDTO(id, name , address);
                 //CustomerDAO customerDAO = new CustomerDAOImpl();
-                customerDAO.upadteCustomer(customerDTO);
+                customerDAO.update(customerDTO);
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
@@ -222,7 +223,7 @@ public class ManageCustomersFormController {
         return pstm.executeQuery().next();*/
 
         //CustomerDAO customerDAO = new CustomerDAOImpl();
-        return customerDAO.existsCustomer(id);
+        return customerDAO.exist(id);
     }
 
 
@@ -239,7 +240,7 @@ public class ManageCustomersFormController {
             pstm.executeUpdate();*/
 
             //CustomerDAO customerDAO = new CustomerDAOImpl();
-            customerDAO.btnDeleteCustomerOnAction(id);
+            customerDAO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
