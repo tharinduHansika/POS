@@ -59,6 +59,11 @@ public class PlaceOrderFormController {
 
     private PlaceOrderDAOImpl placeOrderDAO=new PlaceOrderDAOImpl();
 
+    private CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
+    private CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
+    private CrudDAO<OrderDTO, String> orderDAO=new OrderDAOImpl();
+    private CrudDAO<OrderDetailDTO,String> orderDetailsDAO = new OrderDetailDAOImpl();
+
     public void initialize() throws SQLException, ClassNotFoundException {
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -116,7 +121,7 @@ public class PlaceOrderFormController {
                         ResultSet rst = pstm.executeQuery();
                         rst.next();*/
 
-                        CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
+                        //CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
                         CustomerDTO search = customerDAO.search(newValue + "");
 
                         //CustomerDTO customer=placeOrderDAO.selectedCustomer(newValue);
@@ -156,7 +161,7 @@ public class PlaceOrderFormController {
                     //ItemDTO item = new ItemDTO(newItemCode + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
                     //ItemDTO item= placeOrderDAO.selectedItem(newItemCode);
 
-                    CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
+                    //CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
                     ItemDTO item = itemDAO.search(newItemCode + "");
 
                     txtDescription.setText(item.getDescription());
@@ -230,7 +235,10 @@ public class PlaceOrderFormController {
             ResultSet rst = stm.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
 
             return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";*/
-            return placeOrderDAO.generateNewOrderID();
+            //return placeOrderDAO.generateNewOrderID();
+
+            //CrudDAO<OrderDTO, String> orderDAO=new OrderDAOImpl();
+            return orderDAO.generateNewID();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
@@ -251,7 +259,7 @@ public class PlaceOrderFormController {
                 cmbCustomerId.getItems().add(rst.getString("id"));*/
 
             //ArrayList<CustomerDTO> allCustomers=placeOrderDAO.getAllCustomerID();
-            CrudDAO<CustomerDTO, String> customerDAO=new CustomerDAOImpl();
+            //CrudDAO<CustomerDTO, String> customerDAO=new CustomerDAOImpl();
             ArrayList<CustomerDTO> allCustomers=customerDAO.getAll();
 
             for (CustomerDTO customer:allCustomers
@@ -276,7 +284,7 @@ public class PlaceOrderFormController {
                 cmbItemCode.getItems().add(rst.getString("code"));*/
 
             //ArrayList<ItemDTO> allItems=placeOrderDAO.getAllItemCode();
-            CrudDAO<ItemDTO,String> itemDAO=new ItemDAOImpl();
+            //CrudDAO<ItemDTO,String> itemDAO=new ItemDAOImpl();
             ArrayList<ItemDTO> allItems=itemDAO.getAll();
 
             for (ItemDTO item:allItems
@@ -398,8 +406,8 @@ public class PlaceOrderFormController {
             connection.setAutoCommit(false);
 
             //DI
-            CrudDAO<OrderDTO,String> orderDAO1 = new OrderDAOImpl();
-            boolean save = orderDAO1.save(new OrderDTO(orderId, orderDate, customerId));
+            //CrudDAO<OrderDTO,String> orderDAO1 = new OrderDAOImpl();
+            boolean save = orderDAO.save(new OrderDTO(orderId, orderDate, customerId));
 
             if (!save) {
                 connection.rollback();
@@ -421,7 +429,7 @@ public class PlaceOrderFormController {
                     return false;
                 }*/
 
-            CrudDAO<OrderDetailDTO,String> orderDetailsDAO = new OrderDetailDAOImpl();
+            //CrudDAO<OrderDetailDTO,String> orderDetailsDAO = new OrderDetailDAOImpl();
 
             for (OrderDetailDTO detail : orderDetails) {
                 boolean save1 = orderDetailsDAO.save(detail);
@@ -446,7 +454,7 @@ public class PlaceOrderFormController {
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
                 //update item
-                CrudDAO<ItemDTO,String> itemDAO = new ItemDAOImpl();
+                //CrudDAO<ItemDTO,String> itemDAO = new ItemDAOImpl();
                 boolean update = itemDAO.update(new ItemDTO(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
 
                 if (!update) {
@@ -478,7 +486,7 @@ public class PlaceOrderFormController {
             rst.next();*/
 
             //ArrayList<ItemDTO> allItems=placeOrderDAO.findItem(code);
-            CrudDAO<ItemDTO,String> itemDAO=new ItemDAOImpl();
+            //CrudDAO<ItemDTO,String> itemDAO=new ItemDAOImpl();
             //ArrayList<ItemDTO> allItems=placeOrderDAO.findItem(code);
             return itemDAO.search(code);
 
