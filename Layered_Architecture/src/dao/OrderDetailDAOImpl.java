@@ -6,8 +6,10 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrderDetailDAOImpl implements CrudDAO<OrderDetailDTO,String> {
-    @Override
+public class OrderDetailDAOImpl implements OrderDetailDAO {
+
+    //-------------------------------------------without unique methods code--------------------------------------------
+    /*@Override
     public ArrayList<OrderDetailDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
@@ -40,6 +42,6 @@ public class OrderDetailDAOImpl implements CrudDAO<OrderDetailDTO,String> {
     @Override
     public String generateNewID() throws SQLException, ClassNotFoundException {
         return null;
-    }
+    }*/
 
 }

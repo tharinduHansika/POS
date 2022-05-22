@@ -6,8 +6,47 @@ import model.CustomerDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String>{
+public class CustomerDAOImpl implements CustomerDAO{
     @Override
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public CustomerDTO search(String s) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> getAllCustomerByAddress(String address) {
+        return null;
+    }
+
     /*public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
             *//*Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
@@ -80,10 +119,12 @@ public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String>{
         }
     }*/
 
+    //-------------------------------------------without unique methods code--------------------------------------------
+    /*@Override
     public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
-        /*Connection connection = DBConnection.getDbConnection().getConnection();
+        *//*Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
+            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*//*
         ResultSet rst=SQLUtil.executeQuery("SELECT * FROM Customer");
         ArrayList<CustomerDTO> allCustomers=new ArrayList<>();
         while (rst.next()){
@@ -97,13 +138,13 @@ public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String>{
 
     @Override
     public boolean save(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-        /*Connection connection = DBConnection.getDbConnection().getConnection();
+        *//*Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
         pstm.setString(1, customerDTO.getId());
         pstm.setString(2, customerDTO.getName());
         pstm.setString(3, customerDTO.getAddress()
         );
-        return pstm.executeUpdate()>0;*/
+        return pstm.executeUpdate()>0;*//*
         return SQLUtil.executeUpdate("INSERT INTO Customer (id,name, address) VALUES (?,?,?)",customerDTO.getId(),customerDTO.getName(),customerDTO.getAddress());
     }
 
@@ -142,7 +183,6 @@ public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String>{
         }else {
             return "C00-001";
         }
-    }
-
+    }*/
 
 }
