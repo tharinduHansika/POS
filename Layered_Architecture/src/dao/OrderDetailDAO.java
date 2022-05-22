@@ -1,4 +1,6 @@
 package dao;
 
-public interface OrderDetailDAO extends CrudDAO<OrderDetailDAO,String>{
+import model.OrderDetailDTO;
+
+public interface OrderDetailDAO extends CrudDAO<OrderDetailDTO,String>{
 }

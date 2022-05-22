@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class ItemDAOImpl implements ItemDAO{
 
+
     /*public ArrayList <ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
         *//*Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();
@@ -137,4 +138,46 @@ public class ItemDAOImpl implements ItemDAO{
             return "I00-001";
         }
     }*/
+
+    //---------------------------------------------with unique methods code---------------------------------------------
+
+    @Override
+    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public ItemDTO search(String s) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ItemDTO> getItemFromPrice(double price) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 }

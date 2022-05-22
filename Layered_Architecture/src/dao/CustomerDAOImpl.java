@@ -7,45 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO{
-    @Override
-    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
-        return null;
-    }
 
-    @Override
-    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public CustomerDTO search(String s) throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean exist(String s) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public ArrayList<CustomerDTO> getAllCustomerByAddress(String address) {
-        return null;
-    }
 
     /*public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
             *//*Connection connection = DBConnection.getDbConnection().getConnection();
@@ -184,5 +146,47 @@ public class CustomerDAOImpl implements CustomerDAO{
             return "C00-001";
         }
     }*/
+
+    //---------------------------------------------with unique methods code---------------------------------------------
+
+    @Override
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public CustomerDTO search(String s) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> getAllCustomerByAddress(String address) {
+        return null;
+    }
 
 }
