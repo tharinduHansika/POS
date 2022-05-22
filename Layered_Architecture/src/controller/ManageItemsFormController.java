@@ -227,7 +227,7 @@ public class ManageItemsFormController {
 
                 ItemDTO itemDTO = new ItemDTO(code,description,unitPrice,qtyOnHand);
                 //ItemDAO itemDAO = new ItemDAOImpl();
-                itemDAO.delete(itemDTO);
+                itemDAO.update(itemDTO);
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
