@@ -57,12 +57,12 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    private CustomerDAO customerDAO = new CustomerDAOImpl();
+    /*private CustomerDAO customerDAO = new CustomerDAOImpl();
     private ItemDAO itemDAO = new ItemDAOImpl();
     private OrderDAO orderDAO=new OrderDAOImpl();
     private OrderDetailDAO orderDetailsDAO = new OrderDetailDAOImpl();
     private QueryDAO queryDAO=new QueryDAOImpl();
-
+*/
     public void initialize() throws SQLException, ClassNotFoundException {
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -70,6 +70,7 @@ public class PlaceOrderFormController {
         tblOrderDetails.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("qty"));
         tblOrderDetails.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         tblOrderDetails.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("total"));
+
         TableColumn<OrderDetailTM, Button> lastCol = (TableColumn<OrderDetailTM, Button>) tblOrderDetails.getColumns().get(5);
 
         lastCol.setCellValueFactory(param -> {
@@ -385,22 +386,22 @@ public class PlaceOrderFormController {
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
         /*Transaction*/
-        Connection connection = null;
+        /*Connection connection = null;
         try {
-            /*connection = DBConnection.getDbConnection().getConnection();
+            *//*connection = DBConnection.getDbConnection().getConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
-            stm.setString(1, orderId);*/
+            stm.setString(1, orderId);*//*
             CrudDAO<OrderDTO,String> orderDAO = new OrderDAOImpl();
-            /*if order id already exist*/
+            *//*if order id already exist*//*
             if (orderDAO.exist(orderId)) {
 
             }
 
-            /*connection.setAutoCommit(false);
+            *//*connection.setAutoCommit(false);
             stm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");
             stm.setString(1, orderId);
             stm.setDate(2, Date.valueOf(orderDate));
-            stm.setString(3, customerId);*/
+            stm.setString(3, customerId);*//*
 
             connection.setAutoCommit(false);
 
@@ -414,7 +415,7 @@ public class PlaceOrderFormController {
                 return false;
             }
 
-            /*stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
+            *//*stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
 
             for (OrderDetailDTO detail : orderDetails) {
                 stm.setString(1, orderId);
@@ -426,7 +427,7 @@ public class PlaceOrderFormController {
                     connection.rollback();
                     connection.setAutoCommit(true);
                     return false;
-                }*/
+                }*//*
 
             //CrudDAO<OrderDetailDTO,String> orderDetailsDAO = new OrderDetailDAOImpl();
 
@@ -439,14 +440,14 @@ public class PlaceOrderFormController {
                 }
 
 //                //Search & Update Item
-                /*ItemDTO item = findItem(detail.getItemCode());
+                *//*ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
                 PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
                 pstm.setString(1, item.getDescription());
                 pstm.setBigDecimal(2, item.getUnitPrice());
                 pstm.setInt(3, item.getQtyOnHand());
-                pstm.setString(4, item.getCode());*/
+                pstm.setString(4, item.getCode());*//*
 
                 //Search & Update Item
                 ItemDTO item = findItem(detail.getItemCode());
@@ -472,7 +473,7 @@ public class PlaceOrderFormController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return false;*/
     }
 
 
