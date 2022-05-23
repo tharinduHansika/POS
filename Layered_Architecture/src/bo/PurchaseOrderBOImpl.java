@@ -3,6 +3,7 @@ package bo;
 import dao.CrudDAO;
 import dao.custom.*;
 import dao.custom.impl.*;
+import model.CustomerDTO;
 import model.ItemDTO;
 import model.OrderDTO;
 import model.OrderDetailDTO;
@@ -10,6 +11,7 @@ import model.OrderDetailDTO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseOrderBOImpl {
@@ -49,7 +51,8 @@ public class PurchaseOrderBOImpl {
                 }
 
                 //Search & Update Item
-                ItemDTO item = findItem(detail.getItemCode());
+                //ItemDTO item = findItem(detail.getItemCode());
+                ItemDTO item =null;
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
                 //update item
@@ -65,7 +68,33 @@ public class PurchaseOrderBOImpl {
             connection.commit();
             connection.setAutoCommit(true);
             return true;
+    }
 
-        return false;
+    public CustomerDTO searchCustomer(String ID) throws SQLException, ClassNotFoundException {
+        return customerDAO.search(ID);
+    }
+
+    public ItemDTO searchItem(String ID) throws SQLException, ClassNotFoundException {
+        return itemDAO.search(ID);
+    }
+
+    public String generatteNewOrderID() throws SQLException, ClassNotFoundException {
+        return orderDAO.generateNewID();
+    }
+
+    public ArrayList<CustomerDTO> loadAllCustomerID() throws SQLException, ClassNotFoundException {
+        return customerDAO.getAll();
+    }
+
+    public ArrayList<ItemDTO> loadAllItemID() throws SQLException, ClassNotFoundException {
+        return itemDAO.getAll();
+    }
+
+    public boolean isItemExists(String ID) throws SQLException, ClassNotFoundException {
+        return itemDAO.exist(ID);
+    }
+
+    public boolean isCustomerExists(String ID) throws SQLException, ClassNotFoundException {
+        return customerDAO.exist(ID);
     }
 }
